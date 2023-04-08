@@ -1,4 +1,4 @@
-<div align="center">
+
   
   # Revenda de Veículos
   
@@ -31,4 +31,4 @@
   
     - Veículos: marca, modelo, cor, ano de fabricação, ano do modelo, combustível, preço, detalhes (texto) e foto.
   
-</div>
+
