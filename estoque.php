@@ -3,6 +3,9 @@ require './core/config/database.php';
 
 require './core/models/veiculo.php';
 
+$flag_msg = null;
+$msg = '';
+
 $database = new Database();
 
 try {
