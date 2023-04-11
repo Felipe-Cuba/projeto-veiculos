@@ -1,3 +1,12 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  background-color: #d1d1d1 !important;
+}
 .navbar {
   border-radius: 0 !important;
   margin-bottom: 0 !important;
@@ -58,3 +67,4 @@
 footer .container {
   color: white;
 }
+

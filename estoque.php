@@ -8,7 +8,7 @@ $database = new Database();
 try {
   $database->connect();
 
-  $result = $database->selectAll('veiculos', 'id_veiculo', 'DESC', '3');
+  $result = $database->selectAll('veiculos', 'id_veiculo', 'ASC');
   $veiculos = $result->fetchAll(PDO::FETCH_CLASS, "Veiculo");
 
   $database->closeConnection();
@@ -34,11 +34,9 @@ require_once('./views/layouts/header_inc.php');
 </style>
 
 <main class="container">
-
-  <h1>Bem-vindo ao nosso site</h1>
+  <h1>Bem-vindo ao nosso estoque</h1>
   <p>Aqui você encontra os melhores carros usados do mercado.</p>
   <hr>
-  <h2>Últimos carros adicionados ao estoque:</h2>
 
   <?php
   if (!is_null($flag_msg)) {
@@ -49,7 +47,6 @@ require_once('./views/layouts/header_inc.php');
     }
   }
   ?>
-
   <div class="row">
     <?php foreach ($veiculos as $veiculo) { ?>
       <div class="col-md-4 mb-4 card-veiculo">

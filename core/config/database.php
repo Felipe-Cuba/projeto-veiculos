@@ -29,22 +29,27 @@ class Database
     }
   }
 
-  public function selectAll($table, $order = "", $limit = "")
+  public function selectAll($table, $order = "", $order_direction = "", $limit = "")
   {
     $query = "SELECT * FROM $table";
     if (!empty($order)) {
       $query .= " ORDER BY $order";
+
+      if (!empty($order_direction)) {
+        $query .= " $order_direction";
+      }
     }
     if (!empty($limit)) {
       $query .= " LIMIT $limit";
     }
     $stmt = $this->conn->prepare($query);
     $stmt->execute();
-    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    return $result;
+    // $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $stmt;
   }
 
-  public function selectWhere($table, $fields, $where = "", $order = "", $limit = "")
+
+  public function selectWhere($table, $fields, $where = "", $order = "", $limit = ""): PDOStatement
   {
     $fields_str = implode(",", $fields);
     $query = "SELECT $fields_str FROM $table";
@@ -59,12 +64,12 @@ class Database
     }
     $stmt = $this->conn->prepare($query);
     $stmt->execute();
-    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    return $result;
+    // $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $stmt;
   }
 
 
-  public function insert($table, $data)
+  public function insert(string $table, $data): int
   {
     $keys = array_keys($data);
     $values = array_values($data);

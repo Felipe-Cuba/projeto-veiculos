@@ -30,7 +30,7 @@
               <a class="nav-link active" aria-current="page" href="./index.php">Página Inicial</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Estoque de Veículos</a>
+              <a class="nav-link" href="./estoque.php">Estoque de Veículos</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -38,7 +38,7 @@
               </a>
               <ul class="dropdown-menu bg-dark p-3 border-0 rounded-0" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item bg-dark" href="./veiculos-list.php">Gerenciamento de Veículos</a></li>
-                <li><a class="dropdown-item bg-dark" href="#">Gerenciamento de Vendedores</a></li>
+                <li><a class="dropdown-item bg-dark" href="./vendedores-list.php">Gerenciamento de Vendedores</a></li>
               </ul>
             </li>
           </ul>

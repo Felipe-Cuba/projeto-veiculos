@@ -2,7 +2,7 @@
 
 class Veiculo
 {
-  private int $id;
+  private int $id_veiculo;
   private string $marca;
   private string $modelo;
   private string $cor;
