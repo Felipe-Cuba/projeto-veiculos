@@ -121,6 +121,8 @@ if (isset($_POST['enviar'])) {
             $msg = 'Veiculo atualizado com sucesso';
           else
             $msg = 'Veiculo cadastrado com sucesso';
+
+          header('Location: veiculo-list.php');
         } else {
           $flag_msg = false;
           if (isset($id) && !empty($id))

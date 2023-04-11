@@ -2,7 +2,7 @@
 
 class Vendedor
 {
-  private int $id;
+  private int $id_vendedor;
   private string $nome;
   private string $email;
   private string $telefone;
