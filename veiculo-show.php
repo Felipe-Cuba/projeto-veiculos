@@ -71,11 +71,15 @@ require_once('./views/layouts/header_inc.php');
           </tr>
           <tr>
             <th>Preço:</th>
-            <td>R$ <?= number_format($veiculo->__get('preco'), 2, ',', '.') ?></td>
+            <td>R$ <?= $veiculo->__get('preco') ?></td>
           </tr>
           <tr>
             <th>Cor:</th>
             <td><?= $veiculo->__get('cor') ?></td>
+          </tr>
+          <tr>
+            <th>Detalhes:</th>
+            <td><?= $veiculo->__get('detalhes') ?></td>
           </tr>
         </tbody>
       </table>

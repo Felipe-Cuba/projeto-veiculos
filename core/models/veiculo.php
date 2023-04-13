@@ -15,7 +15,12 @@ class Veiculo
 
   public function __get($name)
   {
-    return $this->$name;
+
+    if ($name === 'preco') {
+      return number_format($this->$name, 2, ',', '.');
+    } else {
+      return $this->$name;
+    }
   }
 
   public function __set($name, $value)

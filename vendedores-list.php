@@ -15,7 +15,7 @@ try {
 
   if (!(count($vendedores) > 0)) {
     $flag_msg = false;
-    $msg = 'Não há veículos cadastrados';
+    $msg = 'Não há vendedores cadastrados';
   }
 } catch (PDOException $error) {
   $flag_msg = false;

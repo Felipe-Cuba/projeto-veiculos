@@ -122,7 +122,7 @@ if (isset($_POST['enviar'])) {
           else
             $msg = 'Veiculo cadastrado com sucesso';
 
-          header('Location: veiculo-list.php');
+          header('Location: veiculos-list.php');
         } else {
           $flag_msg = false;
           if (isset($id) && !empty($id))

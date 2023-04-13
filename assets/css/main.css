@@ -5,8 +5,10 @@
 }
 
 body{
-  background-color: #d1d1d1 !important;
+  background-color: #f3f3f3 !important;
 }
+
+
 .navbar {
   border-radius: 0 !important;
   margin-bottom: 0 !important;
@@ -68,3 +70,10 @@ footer .container {
   color: white;
 }
 
+.item-vendedor{
+  background-color: #f0f0f0 !important;
+}
+
+.item-vendedor .item-vendedor-telefone {
+  color: #333 !important;
+}

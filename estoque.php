@@ -8,10 +8,22 @@ $msg = '';
 
 $database = new Database();
 
+$table = 'veiculos';
+$selected = $filtro = isset($_GET['filtro']) ? $_GET['filtro'] : 'marca';
+
+
+$order = 'ASC';
+
+if ($filtro === 'menor-preco') {
+  $filtro = 'preco';
+} elseif ($filtro === 'maior-preco') {
+  $filtro = 'preco';
+  $order = 'DESC';
+}
 try {
   $database->connect();
 
-  $result = $database->selectAll('veiculos', 'id_veiculo', 'ASC');
+  $result = $database->selectAll($table, $filtro, $order);
   $veiculos = $result->fetchAll(PDO::FETCH_CLASS, "Veiculo");
 
   $database->closeConnection();
@@ -41,6 +53,16 @@ require_once('./views/layouts/header_inc.php');
   <p>Aqui você encontra os melhores carros usados do mercado.</p>
   <hr>
 
+  <div class="form-group my-4">
+    <label for="filtro">Filtrar por:</label>
+    <select class="form-control" id="filtro" name="filtro" onchange="filtrarPor()">
+      <option value="marca" <?php if ($selected == 'marca') echo 'selected'; ?>>Marca</option>
+      <option value="modelo" <?php if ($selected == 'modelo') echo 'selected'; ?>>Modelo</option>
+      <option value="menor-preco" <?php if ($selected == 'menor-preco') echo 'selected'; ?>>Menor preço</option>
+      <option value="maior-preco" <?php if ($selected == 'maior-preco') echo 'selected'; ?>>Maior preço</option>
+    </select>
+  </div>
+
   <?php
   if (!is_null($flag_msg)) {
     if ($flag_msg) {
@@ -59,7 +81,7 @@ require_once('./views/layouts/header_inc.php');
             <h5 class="card-title"><?= $veiculo->__get('modelo') ?></h5>
             <hr class="bg-white">
             <p class="card-text"><?= $veiculo->__get('marca') ?></p>
-            <p class="card-text"><i class="bi bi-currency-dollar"></i> <?= number_format($veiculo->__get('preco'), 2, ',', '.') ?></p>
+            <p class="card-text"><i class="bi bi-currency-dollar"></i>R$ <?= $veiculo->__get('preco') ?></p>
             <a href="veiculo-show.php?id=<?= $veiculo->__get('id_veiculo') ?>" class="btn btn-primary">Ver mais</a>
           </div>
         </div>
@@ -67,6 +89,13 @@ require_once('./views/layouts/header_inc.php');
     <?php } ?>
   </div>
 </main>
+
+<script>
+  function filtrarPor() {
+    const filtro = document.getElementById('filtro').value;
+    window.location.href = `estoque.php?filtro=${filtro}`;
+  }
+</script>
 
 
 

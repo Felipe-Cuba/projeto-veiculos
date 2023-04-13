@@ -14,6 +14,7 @@ try {
   $result = $database->selectAll('veiculos');
   $veiculos = $result->fetchAll(PDO::FETCH_CLASS, "Veiculo");
 
+
   $database->closeConnection();
 
   if (!(count($veiculos) > 0)) {
@@ -63,7 +64,7 @@ require_once('./views/layouts/header_inc.php');
             <td><?= $veiculo->__get('ano_fabricacao') ?></td>
             <td><?= $veiculo->__get('ano_modelo') ?></td>
             <td><?= $veiculo->__get('combustivel') ?></td>
-            <td>R$ <?= number_format($veiculo->__get('preco'), 2, ',', '.') ?></td>
+            <td>R$ <?= $veiculo->__get('preco') ?></td>
             <td><?= $veiculo->__get('cor') ?></td>
             <td><img src="<?= $veiculo->__get('foto') ?>" class="img-thumbnail" width="100" height="100" alt="Foto do veículo"></td>
             <td><a href="veiculo-show.php?id=<?= $veiculo->__get('id_veiculo') ?>"><button type="button" class="btn btn-primary">Exibir</button></a></td>
