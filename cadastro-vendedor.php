@@ -45,7 +45,7 @@ if (isset($_POST['enviar'])) {
     }
   }
 
-  if ($aux >  0) {
+  if ($aux > 0) {
     $flag_msg = false;
     $msg = 'Preencha todos os campos!';
   } else {
@@ -71,12 +71,8 @@ if (isset($_POST['enviar'])) {
       $database->closeConnection();
 
       if ($stmt) {
-        $flag_msg = true;
-
-        if (isset($id) && !empty($id))
-          $msg = 'Vendedor atualizado com sucesso';
-        else
-          $msg = 'Vendedor cadastrado com sucesso';
+        ignore_user_abort(true);
+        sleep(2);
 
         header('Location: vendedores-list.php');
       } else {
@@ -125,10 +121,15 @@ require_once('./views/layouts/header_inc.php');
         </div>
         <div class="mb-3">
           <label for="descricao" class="form-label">Telefone:</label>
-          <input type="text" class="form-control" id="telefone" name="telefone" required value="<?php echo $telefone ?? ''; ?>">
+          <input type="text" class="form-control" id="telefone" name="telefone" required
+            value="<?php echo $telefone ?? ''; ?>">
         </div>
-        <button type="submit" name="enviar" class="btn btn-primary"><?php if (isset($id)) echo 'Atualizar';
-                                                                    else echo 'Cadastrar'; ?></button>
+        <button type="submit" name="enviar" class="btn btn-primary">
+          <?php if (isset($id))
+            echo 'Atualizar';
+          else
+            echo 'Cadastrar'; ?>
+        </button>
       </form>
     </div>
   </div>

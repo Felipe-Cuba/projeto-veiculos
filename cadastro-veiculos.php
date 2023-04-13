@@ -71,7 +71,7 @@ if (isset($_POST['enviar'])) {
     }
   }
 
-  if ($aux >  0) {
+  if ($aux > 0) {
     $flag_msg = false;
     $msg = 'Preencha todos os campos!';
   } else {
@@ -80,11 +80,25 @@ if (isset($_POST['enviar'])) {
       $msg = 'Envie uma imagem!';
     } else {
       if ($file_size > 0 && $upload_ok) {
+
         $diretorio = 'assets/upload/';
 
-        $nome_arquivo = time() . '-' . $file['name'];
-        $caminho_arquivo = $diretorio . $nome_arquivo;
-        move_uploaded_file($file['tmp_name'], $caminho_arquivo);
+        try {
+          if (!file_exists($diretorio)) { // verifica se pasta upload existe
+            mkdir($diretorio); // caso não exista ele cria a pasta
+          } else {
+            $flag_msg = false;
+            $msg = 'A pasta ja existe!';
+          }
+
+          $nome_arquivo = time() . '-' . $file['name'];
+          $caminho_arquivo = $diretorio . $nome_arquivo;
+          move_uploaded_file($file['tmp_name'], $caminho_arquivo);
+
+        } catch (Exception $error) {
+          $flag_msg = false;
+          $msg = 'Erro ao salvar a imagem' . $error->getMessage();
+        }
       }
 
       $table = 'veiculos';
@@ -116,12 +130,8 @@ if (isset($_POST['enviar'])) {
 
 
         if ($result) {
-          $flag_msg = true;
-
-          if (isset($id) && !empty($id))
-            $msg = 'Veiculo atualizado com sucesso';
-          else
-            $msg = 'Veiculo cadastrado com sucesso';
+          ignore_user_abort(true);
+          sleep(2);
 
           header('Location: veiculos-list.php');
         } else {
@@ -167,19 +177,23 @@ require_once('./views/layouts/header_inc.php');
         </div>
         <div class="mb-3">
           <label for="descricao" class="form-label">Modelo:</label>
-          <input type="text" class="form-control" id="modelo" name="modelo" required value="<?php echo $modelo ?? ''; ?>">
+          <input type="text" class="form-control" id="modelo" name="modelo" required
+            value="<?php echo $modelo ?? ''; ?>">
         </div>
         <div class="mb-3">
           <label for="descricao" class="form-label">Ano de fabricacao:</label>
-          <input type="text" class="form-control" id="ano_fabricacao" name="ano_fabricacao" required value="<?php echo $ano_fabricacao ?? ''; ?>">
+          <input type="text" class="form-control" id="ano_fabricacao" name="ano_fabricacao" required
+            value="<?php echo $ano_fabricacao ?? ''; ?>">
         </div>
         <div class="mb-3">
           <label for="descricao" class="form-label">Ano do modelo:</label>
-          <input type="text" class="form-control" id="ano_modelo" name="ano_modelo" required value="<?php echo $ano_modelo ?? ''; ?>">
+          <input type="text" class="form-control" id="ano_modelo" name="ano_modelo" required
+            value="<?php echo $ano_modelo ?? ''; ?>">
         </div>
         <div class="mb-3">
           <label for="descricao" class="form-label">Tipo de combustivel:</label>
-          <input type="text" class="form-control" id="tipo_combustivel" name="tipo_combustivel" required value="<?php echo $tipo_combustivel ?? ''; ?>">
+          <input type="text" class="form-control" id="tipo_combustivel" name="tipo_combustivel" required
+            value="<?php echo $tipo_combustivel ?? ''; ?>">
         </div>
         <div class="mb-3">
           <label for="descricao" class="form-label">Preço:</label>
@@ -191,17 +205,24 @@ require_once('./views/layouts/header_inc.php');
         </div>
         <div class="mb-3">
           <label for="descricao" class="form-label">Detalhes:</label>
-          <textarea class="form-control" id="detalhes" name="detalhes" rows="3"><?php echo $detalhes ?? ''; ?></textarea>
+          <textarea class="form-control" id="detalhes" name="detalhes"
+            rows="3"><?php echo $detalhes ?? ''; ?></textarea>
 
         </div>
         <div class="mb-3">
           <label for="imagem" class="form-label">Imagem:</label>
-          <input type="file" class="form-control" id="imagem" name="imagem" onchange="previewImagem();" <?php if (isset($id)) echo '';
-                                                                                                        else echo 'required'; ?>>
+          <input type="file" class="form-control" id="imagem" name="imagem" onchange="previewImagem();" <?php if (isset($id))
+            echo '';
+          else
+            echo 'required'; ?>>
           <img id="preview" class="mt-3" style="max-width: 100%;" style="display:none">
         </div>
-        <button type="submit" name="enviar" class="btn btn-primary"><?php if (isset($id)) echo 'Atualizar';
-                                                                    else echo 'Cadastrar'; ?></button>
+        <button type="submit" name="enviar" class="btn btn-primary">
+          <?php if (isset($id))
+            echo 'Atualizar';
+          else
+            echo 'Cadastrar'; ?>
+        </button>
       </form>
     </div>
   </div>
@@ -214,7 +235,7 @@ require_once('./views/layouts/header_inc.php');
     var preview = document.querySelector('#preview');
     var reader = new FileReader();
 
-    reader.onloadend = function() {
+    reader.onloadend = function () {
       preview.src = reader.result;
       preview.style.display = "block";
       preview.style.margin = "auto";
