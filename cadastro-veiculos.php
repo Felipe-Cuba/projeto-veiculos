@@ -107,14 +107,15 @@ if (isset($_POST['enviar'])) {
 
         if (isset($id) && !empty($id)) {
           $where = "id_veiculo = $id";
-          $rows_affected = $database->update($table, $data, $where);
+          $result = $database->update($table, $data, $where);
         } else {
-          $rows_affected = $database->insert($table, $data);
+          $result = $database->insert($table, $data);
         }
 
         $database->closeConnection();
 
-        if ($rows_affected > 0) {
+
+        if ($result) {
           $flag_msg = true;
 
           if (isset($id) && !empty($id))

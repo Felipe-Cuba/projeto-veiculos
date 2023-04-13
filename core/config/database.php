@@ -69,7 +69,7 @@ class Database
   }
 
 
-  public function insert(string $table, $data): int
+  public function insert(string $table, $data): PDOStatement | bool
   {
     $keys = array_keys($data);
     $values = array_values($data);
@@ -78,10 +78,10 @@ class Database
     $query = "INSERT INTO $table ($fields) VALUES ($params)";
     $stmt = $this->conn->prepare($query);
     $stmt->execute($values);
-    return $stmt->rowCount();
+    return $stmt;
   }
 
-  public function update($table, $data, $where)
+  public function update($table, $data, $where): PDOStatement | bool
   {
     $set = "";
     foreach ($data as $key => $value) {
@@ -91,7 +91,7 @@ class Database
     $query = "UPDATE $table SET $set WHERE $where";
     $stmt = $this->conn->prepare($query);
     $stmt->execute(array_values($data));
-    return $stmt->rowCount();
+    return $stmt;
   }
 
   public function delete($table, $where)

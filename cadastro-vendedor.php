@@ -124,7 +124,7 @@ require_once('./views/layouts/header_inc.php');
           <input type="email" class="form-control" id="email" name="email" required value="<?php echo $email ?? ''; ?>">
         </div>
         <div class="mb-3">
-          <label for="descricao" class="form-label">Telfone:</label>
+          <label for="descricao" class="form-label">Telefone:</label>
           <input type="text" class="form-control" id="telefone" name="telefone" required value="<?php echo $telefone ?? ''; ?>">
         </div>
         <button type="submit" name="enviar" class="btn btn-primary"><?php if (isset($id)) echo 'Atualizar';
