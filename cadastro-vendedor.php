@@ -63,14 +63,14 @@ if (isset($_POST['enviar'])) {
 
       if (isset($id) && !empty($id)) {
         $where = "id_vendedor = $id";
-        $rows_affected = $database->update($table, $data, $where);
+        $stmt = $database->update($table, $data, $where);
       } else {
-        $rows_affected = $database->insert($table, $data);
+        $stmt = $database->insert($table, $data);
       }
 
       $database->closeConnection();
 
-      if ($rows_affected > 0) {
+      if ($stmt) {
         $flag_msg = true;
 
         if (isset($id) && !empty($id))
