@@ -25,11 +25,13 @@ if (isset($_GET['id'])) {
       $ano_fabricacao = $row['ano_fabricacao'];
       $ano_modelo = $row['ano_modelo'];
       $tipo_combustivel = $row['combustivel'];
-      $preco = $row['preco'];
+      $preco = 'R$ ' . number_format($row['preco'], 2, ',', '.');
       $cor = $row['cor'];
       $detalhes = $row['detalhes'];
       $caminho_arquivo = $row['foto'];
     }
+
+
 
     $database->closeConnection();
   } catch (PDOException $error) {
