@@ -37,7 +37,7 @@ try {
 
   $database->closeConnection();
 
-  if (!(count($veiculos) > 0)) {
+  if (!(count($vendedores) > 0)) {
     $vendedores_flag_msg = false;
     $vendedores_msg = 'Não há vendedores cadastrados';
   }

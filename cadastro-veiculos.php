@@ -51,7 +51,13 @@ if (isset($_POST['enviar'])) {
   $cor = $post['cor'];
   $detalhes = $post['detalhes'];
 
+  $preco = str_replace("R$ ", "", $preco);
+  $preco = str_replace(".", "", $preco);
+  $preco = str_replace(",", ".", $preco);
+  $preco = floatval($preco);
+
   $form = [$marca, $modelo, $ano_fabricacao, $ano_modelo, $tipo_combustivel, $preco, $cor];
+
 
   if (isset($_FILES['imagem'])) {
     $file = $_FILES['imagem'];
@@ -71,6 +77,7 @@ if (isset($_POST['enviar'])) {
     }
   }
 
+
   if ($aux > 0) {
     $flag_msg = false;
     $msg = 'Preencha todos os campos!';
@@ -86,9 +93,6 @@ if (isset($_POST['enviar'])) {
         try {
           if (!file_exists($diretorio)) { // verifica se pasta upload existe
             mkdir($diretorio); // caso não exista ele cria a pasta
-          } else {
-            $flag_msg = false;
-            $msg = 'A pasta ja existe!';
           }
 
           $nome_arquivo = time() . '-' . $file['name'];
@@ -102,6 +106,9 @@ if (isset($_POST['enviar'])) {
       }
 
       $table = 'veiculos';
+
+
+
       $data = array(
         'marca' => $marca,
         'modelo' => $modelo,
@@ -229,7 +236,18 @@ require_once('./views/layouts/header_inc.php');
 
 </div>
 
+<script src="assets/js/jquery.maskMoney.min.js" type="text/javascript"></script>
+
 <script>
+  $(function () {
+    $('#preco').maskMoney({
+      prefix: 'R$ ',
+      allowNegative: true,
+      thousands: '.', decimal: ',',
+      affixesStay: true
+    });
+  })
+
   function previewImagem() {
     var imagem = document.querySelector('input[name=imagem]').files[0];
     var preview = document.querySelector('#preview');
